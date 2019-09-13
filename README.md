@@ -1,2 +1,3 @@
 # ProtoType
-A ProtoType Game for Futures
+A ProtoType Game for Future Games
+
