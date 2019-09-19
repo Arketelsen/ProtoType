@@ -5,23 +5,29 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
 
-    [SerializeField] private float _sensitivity = 1f;
+    [SerializeField] private float _sensitivity = 2f;
     [SerializeField]private float _minPitch, _maxPitch;
+
+    [SerializeField]private Transform currentTransform;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        currentTransform = transform.parent.GetComponentInParent<Transform>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        float _mouseY = Input.GetAxis("Mouse Y") * _sensitivity;
-        float _mouseX = Input.GetAxis("Mouse X") * _sensitivity;
+        float _mouseY = Input.GetAxis("Mouse Y");
+        float _mouseX = Input.GetAxis("Mouse X");
 
+        Vector3 newRotation = currentTransform.localEulerAngles;
 
-        //_mouseY = Mathf.Clamp(_mouseX, _minPitch, _maxPitch);
+        newRotation.x = _mouseY * _sensitivity * -1;
+        newRotation.y = _mouseX * _sensitivity;
+        _mouseX = Mathf.Clamp(_mouseX, _minPitch, _maxPitch);
 
-        transform.eulerAngles = new Vector3(_mouseY, _mouseX, 0f);
+        transform.localEulerAngles = newRotation;
     }
 }
