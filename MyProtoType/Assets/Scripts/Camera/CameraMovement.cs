@@ -14,6 +14,7 @@ public class CameraMovement : MonoBehaviour
     void Start()
     {
         currentTransform = transform.parent.GetComponentInParent<Transform>();
+
     }
 
     // Update is called once per frame
@@ -23,10 +24,10 @@ public class CameraMovement : MonoBehaviour
         float _mouseX = Input.GetAxis("Mouse X");
 
         Vector3 newRotation = currentTransform.localEulerAngles;
-
+        _mouseY = Mathf.Clamp(_mouseY, _minPitch, _maxPitch);
         newRotation.x = _mouseY * _sensitivity * -1;
         newRotation.y = _mouseX * _sensitivity;
-        _mouseX = Mathf.Clamp(_mouseX, _minPitch, _maxPitch);
+        
 
         transform.localEulerAngles = newRotation;
     }

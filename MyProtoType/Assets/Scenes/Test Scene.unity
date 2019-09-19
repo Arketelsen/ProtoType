@@ -443,9 +443,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a484c3d8de421ad4b833dd7ccfd0a8c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sensitivity: 1
+  _sensitivity: 2
   _minPitch: -90
   _maxPitch: 90
+  currentTransform: {fileID: 0}
 --- !u!1001 &61056084386574391
 PrefabInstance:
   m_ObjectHideFlags: 0
