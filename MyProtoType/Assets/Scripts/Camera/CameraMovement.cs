@@ -5,15 +5,22 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
 
-    [SerializeField] private float _sensitivity = 2f;
+    [SerializeField]private float _sensitivity = 2f;
     [SerializeField]private float _minPitch, _maxPitch;
 
-    [SerializeField]private Transform currentTransform;
+    [SerializeField] private Transform currentPlayerTransform, currentHeadTransform;
+    private Vector3 newPlayerRotation;
+    private Vector3 newHeadRotation;
 
     // Start is called before the first frame update
     void Start()
     {
-        currentTransform = transform.parent.GetComponentInParent<Transform>();
+
+        currentPlayerTransform = transform.parent.GetComponentInParent<Transform>();
+        newPlayerRotation = currentPlayerTransform.localEulerAngles;
+        currentHeadTransform = transform.GetComponent<Transform>();
+        newHeadRotation = currentPlayerTransform.localEulerAngles;
+        //newRotation = transform.localEulerAngles;
 
     }
 
@@ -23,12 +30,13 @@ public class CameraMovement : MonoBehaviour
         float _mouseY = Input.GetAxis("Mouse Y");
         float _mouseX = Input.GetAxis("Mouse X");
 
-        Vector3 newRotation = currentTransform.localEulerAngles;
+        //Vector3 newRotation = currentTransform.localEulerAngles;
         _mouseY = Mathf.Clamp(_mouseY, _minPitch, _maxPitch);
-        newRotation.x = _mouseY * _sensitivity * -1;
-        newRotation.y = _mouseX * _sensitivity;
-        
+        newHeadRotation.x += _mouseY * _sensitivity * -1;
+        newPlayerRotation.y += _mouseX * _sensitivity;
 
-        transform.localEulerAngles = newRotation;
+        //transform.localEulerAngles = _lookAtPoint.position + newRotation;
+        currentPlayerTransform.localEulerAngles = newPlayerRotation;
+        currentHeadTransform.localEulerAngles = newHeadRotation;
     }
 }
