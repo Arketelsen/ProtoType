@@ -29,12 +29,14 @@ public class CameraMovement : MonoBehaviour
     {
         float _mouseY = Input.GetAxis("Mouse Y");
         float _mouseX = Input.GetAxis("Mouse X");
-
+        
+        
         //Vector3 newRotation = currentTransform.localEulerAngles;
-        _mouseY = Mathf.Clamp(_mouseY, _minPitch, _maxPitch);
+        
         newHeadRotation.x += _mouseY * _sensitivity * -1;
         newPlayerRotation.y += _mouseX * _sensitivity;
-
+        float yRotation = transform.rotation.y;
+        float yNewRotation = Mathf.Clamp(yRotation, _minPitch, _maxPitch);
         //transform.localEulerAngles = _lookAtPoint.position + newRotation;
         currentPlayerTransform.localEulerAngles = newPlayerRotation;
         currentHeadTransform.localEulerAngles = newHeadRotation;
