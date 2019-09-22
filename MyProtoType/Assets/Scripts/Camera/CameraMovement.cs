@@ -20,7 +20,6 @@ public class CameraMovement : MonoBehaviour
         newPlayerRotation = currentPlayerTransform.localEulerAngles;
         currentHeadTransform = transform.GetComponent<Transform>();
         newHeadRotation = currentPlayerTransform.localEulerAngles;
-        //newRotation = transform.localEulerAngles;
 
     }
 
@@ -31,14 +30,13 @@ public class CameraMovement : MonoBehaviour
         float _mouseX = Input.GetAxis("Mouse X");
         
         
-        //Vector3 newRotation = currentTransform.localEulerAngles;
         
         newHeadRotation.x += _mouseY * _sensitivity * -1;
         newPlayerRotation.y += _mouseX * _sensitivity;
         float yRotation = transform.rotation.y;
-        float yNewRotation = Mathf.Clamp(yRotation, _minPitch, _maxPitch);
-        //transform.localEulerAngles = _lookAtPoint.position + newRotation;
+
         currentPlayerTransform.localEulerAngles = newPlayerRotation;
+        newHeadRotation.x = Mathf.Clamp(newHeadRotation.x, _minPitch, _maxPitch);
         currentHeadTransform.localEulerAngles = newHeadRotation;
     }
 }

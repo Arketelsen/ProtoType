@@ -6,7 +6,8 @@ public class Camera_Zoom : MonoBehaviour
 {
 
     private float _scrollSpeed = 2f;
-    private float distance = -3f;
+
+    [SerializeField] private float _minZoom, _maxZoom;
 
     // Start is called before the first frame update
     void Start()
@@ -17,16 +18,16 @@ public class Camera_Zoom : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        distance -= Input.GetAxis("Mouse ScrollWheel") * _scrollSpeed;
-
-        if (distance < 1)
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && transform.position.z > _minZoom)
         {
-            distance = 1;
+            //Camera.main.orthographicSize = Camera.main.orthographicSize -= _scrollSpeed;
+            transform.Translate(0, 0, _scrollSpeed);
+        }
+        if (Input.GetAxis("Mouse ScrollWheel") < 0 && transform.position.z > _maxZoom)
+        {
+            //Camera.main.orthographicSize = Camera.main.orthographicSize += _scrollSpeed;
             
         }
-        if (distance > 6)
-        {
-            distance = 6;
-        }
+        Debug.Log(Input.GetAxis("Mouse ScrollWheel"));
     }
 }
