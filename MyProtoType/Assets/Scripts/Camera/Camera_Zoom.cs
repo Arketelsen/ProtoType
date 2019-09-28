@@ -10,6 +10,8 @@ public class Camera_Zoom : MonoBehaviour
     [SerializeField] private float _minZoom, _maxZoom;
 
     [SerializeField] private Transform target;
+    [SerializeField]
+    private Camera _cameraMain, _cameraSecondary;
 
     // Start is called before the first frame update
     void Start()
@@ -21,20 +23,30 @@ public class Camera_Zoom : MonoBehaviour
     void Update()
     {
         float distFromTarget = Vector3.Distance(transform.position, target.position);
-        Vector3 resetDistance = new Vector3(0, 0, transform.position.z - 1);
-
+        //Vector3 resetDistance = new Vector3(0, 0, target.transform.position.z - 1);
+        float tempDist = 2;
+        
         if (Input.GetAxis("Mouse ScrollWheel") > 0 && distFromTarget > _minZoom)
         {
-            transform.position = Vector3.MoveTowards(transform.position, target.position, _scrollSpeed);
+            float CameraMove = _scrollSpeed * Time.deltaTime * 10f ;
+            transform.position = Vector3.MoveTowards(transform.position, target.position, CameraMove);
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0 && distFromTarget < _maxZoom)
         {
-            transform.position = Vector3.MoveTowards(transform.position, target.position, -_scrollSpeed);
+            float CameraMove = _scrollSpeed * Time.deltaTime * 10f ;
+            transform.position = Vector3.MoveTowards(transform.position, target.position, -CameraMove);
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && distFromTarget <= 0)
+        else if (Input.GetAxis("Mouse ScrollWheel") > 0 && distFromTarget <= _minZoom)
         {
-            
-            transform.position = resetDistance;
+            tempDist = distFromTarget;
+            _cameraMain.enabled = false;
+            _cameraSecondary.enabled = true;
+
+        }
+        else if (distFromTarget > tempDist)
+        {
+            _cameraMain.enabled = true;
+            _cameraSecondary.enabled = false;
         }
         Debug.Log(Input.GetAxis("Mouse ScrollWheel"));
         Debug.Log(distFromTarget);
