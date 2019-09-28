@@ -323,7 +323,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _minZoom: 0
-  _maxZoom: -6
+  _maxZoom: 12
+  target: {fileID: 1521985001}
 --- !u!1001 &1521985000
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -443,6 +444,12 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 1569258138, guid: 400b2c4dc2457a942b08b4a815db9f9e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 400b2c4dc2457a942b08b4a815db9f9e, type: 3}
+--- !u!4 &1521985001 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3270697483553788611, guid: 400b2c4dc2457a942b08b4a815db9f9e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1521985000}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2054365627 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6546118342696310558, guid: 400b2c4dc2457a942b08b4a815db9f9e,
@@ -463,7 +470,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sensitivity: 2
   _minPitch: -80
-  _maxPitch: 100
+  _maxPitch: 80
   currentPlayerTransform: {fileID: 0}
   currentHeadTransform: {fileID: 0}
 --- !u!1001 &61056084386574391

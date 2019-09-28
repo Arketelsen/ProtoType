@@ -9,6 +9,8 @@ public class Camera_Zoom : MonoBehaviour
 
     [SerializeField] private float _minZoom, _maxZoom;
 
+    [SerializeField] private Transform target;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,16 +20,23 @@ public class Camera_Zoom : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetAxis("Mouse ScrollWheel") > 0 && transform.position.z > _minZoom)
+        float distFromTarget = Vector3.Distance(transform.position, target.position);
+        Vector3 resetDistance = new Vector3(0, 0, -1);
+
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && distFromTarget > _minZoom)
         {
-            //Camera.main.orthographicSize = Camera.main.orthographicSize -= _scrollSpeed;
-            transform.Translate(0, 0, _scrollSpeed);
+            transform.position = Vector3.MoveTowards(transform.position, target.position, _scrollSpeed);
         }
-        if (Input.GetAxis("Mouse ScrollWheel") < 0 && transform.position.z > _maxZoom)
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && distFromTarget < _maxZoom)
         {
-            //Camera.main.orthographicSize = Camera.main.orthographicSize += _scrollSpeed;
+            transform.position = Vector3.MoveTowards(transform.position, target.position, -_scrollSpeed);
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && distFromTarget == 0)
+        {
             
+            transform.position = resetDistance;
         }
         Debug.Log(Input.GetAxis("Mouse ScrollWheel"));
+        Debug.Log(distFromTarget);
     }
 }
