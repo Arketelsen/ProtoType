@@ -21,7 +21,7 @@ public class Camera_Zoom : MonoBehaviour
     void Update()
     {
         float distFromTarget = Vector3.Distance(transform.position, target.position);
-        Vector3 resetDistance = new Vector3(0, 0, -1);
+        Vector3 resetDistance = new Vector3(0, 0, transform.position.z - 1);
 
         if (Input.GetAxis("Mouse ScrollWheel") > 0 && distFromTarget > _minZoom)
         {
@@ -31,7 +31,7 @@ public class Camera_Zoom : MonoBehaviour
         {
             transform.position = Vector3.MoveTowards(transform.position, target.position, -_scrollSpeed);
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && distFromTarget == 0)
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && distFromTarget <= 0)
         {
             
             transform.position = resetDistance;
